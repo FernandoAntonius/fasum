@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1003402792197',
     projectId: 'fasum-ef164',
     authDomain: 'fasum-ef164.firebaseapp.com',
+    databaseURL: 'https://fasum-ef164-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fasum-ef164.firebasestorage.app',
     measurementId: 'G-7RLP5JHE94',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:1003402792197:android:271d9781eb78de8e097b6c',
     messagingSenderId: '1003402792197',
     projectId: 'fasum-ef164',
+    databaseURL: 'https://fasum-ef164-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fasum-ef164.firebasestorage.app',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:1003402792197:ios:47f8b9231f6e3070097b6c',
     messagingSenderId: '1003402792197',
     projectId: 'fasum-ef164',
+    databaseURL: 'https://fasum-ef164-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fasum-ef164.firebasestorage.app',
     iosBundleId: 'com.example.fasum',
   );
@@ -72,6 +75,7 @@ class DefaultFirebaseOptions {
     appId: '1:1003402792197:ios:47f8b9231f6e3070097b6c',
     messagingSenderId: '1003402792197',
     projectId: 'fasum-ef164',
+    databaseURL: 'https://fasum-ef164-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fasum-ef164.firebasestorage.app',
     iosBundleId: 'com.example.fasum',
   );
@@ -82,7 +86,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1003402792197',
     projectId: 'fasum-ef164',
     authDomain: 'fasum-ef164.firebaseapp.com',
+    databaseURL: 'https://fasum-ef164-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fasum-ef164.firebasestorage.app',
     measurementId: 'G-NEQWG743X9',
   );
+
 }
