@@ -126,7 +126,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       final base64Image = base64Encode(imageBytes);
       const apiKey = 'AIzaSyA_Kdpd9fx3YUv2rqqlI4XqriZOjtazExc';
       const url =
-          'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=$apiKey';
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent';
       final body = jsonEncode({
         "contents": [
           {
@@ -152,7 +152,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
           },
         ],
       });
-      final headers = {'Content-Type': 'application/json'};
+      final headers = {
+        'x-goog-api-key': apiKey,
+        'Content-Type': 'application/json',
+      };
       final response = await http.post(
         Uri.parse(url),
         headers: headers,

@@ -187,7 +187,9 @@ class SignUpScreenState extends State<SignUpScreen> {
         (route) => false,
       );
     } on FirebaseAuthException catch (error) {
-      _showErrorMessage(_getAuthErrorMessage(error.code));
+      _showErrorMessage(_getAuthErrorMessage(error.code, error.message));
+    } on FirebaseException catch (error) {
+      _showErrorMessage(error.message ?? 'An error occurred. Please try again.');
     } catch (error) {
       _showErrorMessage('An error occurred: $error');
     } finally {
@@ -203,11 +205,11 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   bool _isValidEmail(String email) {
     String emailRegex =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zAZ0-9-]+)*$";
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
     return RegExp(emailRegex).hasMatch(email);
   }
 
-  String _getAuthErrorMessage(String code) {
+  String _getAuthErrorMessage(String code, String? message) {
     switch (code) {
       case 'weak-password':
         return 'The password provided is too weak.';
@@ -216,7 +218,7 @@ class SignUpScreenState extends State<SignUpScreen> {
       case 'invalid-email':
         return 'The email address is not valid.';
       default:
-        return 'An error occurred. Please try again.';
+        return message ?? 'An error occurred. Please try again.';
     }
   }
 

@@ -155,7 +155,7 @@ class SignInScreenState extends State<SignInScreen> {
 
   bool _isValidEmail(String email) {
     String emailRegex =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zAZ0-9-]+)*$";
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
     return RegExp(emailRegex).hasMatch(email);
   }
 
@@ -165,6 +165,8 @@ class SignInScreenState extends State<SignInScreen> {
         return 'No user found with that email';
       case 'wrong-password':
         return 'Wrong password. Please try again.';
+      case 'invalid-email':
+        return 'The email address is not valid.';
       default:
         return 'An error occurred. Please try again.';
     }
