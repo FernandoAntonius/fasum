@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
   @override
   SignUpScreenState createState() => SignUpScreenState();
 }
@@ -15,9 +16,11 @@ class SignUpScreenState extends State<SignUpScreen> {
   final _fullNameController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   bool _isLoading = false;
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 32.0),
+
+                  // Full Name
                   TextFormField(
                     controller: _fullNameController,
                     textCapitalization: TextCapitalization.words,
@@ -47,7 +52,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
+
                   const SizedBox(height: 16.0),
+
+                  // Email
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -65,9 +73,13 @@ class SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
+
                   const SizedBox(height: 16.0),
+
+                  // Password
                   TextFormField(
                     controller: _passwordController,
+                    obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: const OutlineInputBorder(),
@@ -85,7 +97,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                     ),
-                    obscureText: !_isPasswordVisible,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a password';
@@ -96,9 +107,13 @@ class SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
+
                   const SizedBox(height: 16.0),
+
+                  // Confirm Password
                   TextFormField(
                     controller: _confirmPasswordController,
+                    obscureText: !_isConfirmPasswordVisible,
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
                       border: const OutlineInputBorder(),
@@ -117,7 +132,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                     ),
-                    obscureText: !_isConfirmPasswordVisible,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please confirm your password';
@@ -128,7 +142,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
+
                   const SizedBox(height: 16.0),
+
                   _isLoading
                       ? const CircularProgressIndicator()
                       : ElevatedButton(
@@ -145,15 +161,17 @@ class SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _signUp() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
+    if (!_formKey.currentState!.validate()) return;
+
     final email = _emailController.text.trim();
     final password = _passwordController.text;
+
     setState(() => _isLoading = true);
+
     try {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -162,10 +180,11 @@ class SignUpScreenState extends State<SignUpScreen> {
             'email': email,
             'createdAt': Timestamp.now(),
           });
+
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false, // Hapus semua route sebelumnya
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        (route) => false,
       );
     } on FirebaseAuthException catch (error) {
       _showErrorMessage(_getAuthErrorMessage(error.code));
@@ -184,7 +203,7 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   bool _isValidEmail(String email) {
     String emailRegex =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zAZ0-9-]+)*$";
     return RegExp(emailRegex).hasMatch(email);
   }
 
