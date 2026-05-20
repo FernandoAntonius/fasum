@@ -48,13 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final now = DateTime.now();
     final diff = now.difference(dateTime);
     if (diff.inSeconds < 60) {
-      return AppLocalizations.of(context).secondsAgo(diff.inSeconds);
+      return AppLocalizations.of(context)!.secondsAgo(diff.inSeconds);
     } else if (diff.inMinutes < 60) {
-      return AppLocalizations.of(context).minutesAgo(diff.inMinutes);
+      return AppLocalizations.of(context)!.minutesAgo(diff.inMinutes);
     } else if (diff.inHours < 24) {
-      return AppLocalizations.of(context).hoursAgo(diff.inHours);
+      return AppLocalizations.of(context)!.hoursAgo(diff.inHours);
     } else if (diff.inHours < 48) {
-      return AppLocalizations.of(context).oneDayAgo;
+      return AppLocalizations.of(context)!.oneDayAgo;
     } else {
       return DateFormat('dd/MM/yyyy').format(dateTime);
     }
